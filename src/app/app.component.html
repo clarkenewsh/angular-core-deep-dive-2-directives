@@ -1,27 +1,65 @@
 <div class="top-menu">
-
-    <img class="logo"
-         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
-
+	<img class="logo"
+		src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 </div>
 
+<div class="course-card">
+	Test card
+</div>
 
+<!-- Custom attribute directive created 'highlighted' and applied as host element to the course-card component -->
+<!-- Custom event directives can also be created (toggleHighlighted)="onToggle($event)-->
+<!-- Can export a custom directive using template variable and #highlighter="hl" and assign it the expression as hl (exportAs: 'hl' saved in directives.ts file). Can then be used as so <div class="course-description" (dblclick)="highlighter.toggle()">  -->
+<!-- Custom structural directive - *ngxUnless (does the opposite to *ngIf) if the value is falsey -->
 
-<div class="courses" *ngIf="courses[0] as course">
+<!-- <div class="courses" *ngIf="courses[0] as course">
 
-    <course-card
-            (courseSelected)="onCourseSelected($event)"
-                 [course]="course">
+    <course-card highlighted #highlighter="hl"
+			(toggleHighlight)="onToggle($event)"
+			(courseSelected)="onCourseSelected($event)"
+			[course]="course">
 
-        <course-image [src]="course.iconUrl"></course-image>
+			<course-image [src]="course.iconUrl"></course-image>
 
-        <div class="course-description">
-            {{ course.longDescription }}
-        </div>
+			<div class="course-description" 
+				(dblclick)="highlighter.toggle()">
+				{{ course.longDescription }}
+			</div>
 
     </course-card>
 
+</div> -->
+
+
+<!-- Custom structural directive - *ngxUnless (does the opposite to *ngIf) if the value is falsey -->
+<!-- Custom structural directives can be implemented as below -->
+<ng-template [ngIf]="courses[0]" let-course>
+	<div class="courses salmon-theme">
+
+    <!-- Custom attribute directive created 'highlighted' and applied as host element to the course-card component -->
+    <!-- Custom event directives can also be created (toggleHighlighted)="onToggle($event)-->
+		<!-- Can export a custom directive using template variable and #highlighter="hl" and assign it the expression as hl (exportAs: 'hl' saved in directives.ts file). Can then be used as so <div class="course-description" (dblclick)="highlighter.toggle()">  -->
+		<!-- Custom structural directive - *ngxUnless (does the opposite to *ngIf) if the value is falsey -->
+    <course-card highlighted #highlighter="hl"
+			(toggleHighlight)="onToggle($event)"
+			(courseSelected)="onCourseSelected($event)"
+			[course]="course">
+			
+			
+			<!-- *ngx-unless used as a custom structural directive to always show the course image, unless the iconUrl property is falsey (logic in the ngx-unless structural directive file)-->
+			<course-image 
+				[src]="course.iconUrl" 
+				*ngxUnless="!course.iconUrl">
+			</course-image>
+
+			<div class="course-description" 
+				(dblclick)="highlighter.toggle()">
+				{{ course.longDescription }}
+			</div>
+
+    </course-card>
 
 </div>
+</ng-template>
 
 

@@ -9,7 +9,8 @@ import {
     Input,
     OnInit,
     Output, QueryList, TemplateRef,
-    ViewChild
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core';
 import {COURSES} from '../../db-data';
 import {Course} from '../model/course';
@@ -19,6 +20,8 @@ import {CourseImageComponent} from '../course-image/course-image.component';
     selector: 'course-card',
     templateUrl: './course-card.component.html',
     styleUrls: ['./course-card.component.css']
+    // Bypass the encapsulation feature 
+    // encapsulation: ViewEncapsulation.None
 })
 export class CourseCardComponent implements OnInit, AfterViewInit, AfterContentInit {
 
